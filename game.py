@@ -55,6 +55,14 @@ class Barrier(pygame.sprite.Sprite):
         return self.image.get_height()
 
 
+class Background(pygame.sprite.Sprite):
+    def __init__(self, image_file, location):
+        pygame.sprite.Sprite.__init__(self)  # call Sprite initializer
+        self.image = pygame.image.load(image_file)
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.top = location
+
+
 pygame.init()
 
 GREEN = (20, 255, 140)
@@ -81,6 +89,9 @@ playerCar.rect.y = 230
 barrier = Barrier(RED, 0, 0)
 barrier.rect.x = 400
 barrier.rect.y = 230
+
+
+bg1 = Background('road1.jpg', [0, 0])
 
 
 # Add the car to the list of objects
@@ -120,8 +131,9 @@ while carryOn:
 
     # Drawing on Screen
     screen.fill(GREEN)
+    screen.blit(bg1.image, bg1.rect)
 
-    text_surface, rect = font.render(f"Score: {score}", (0, 0, 0))
+    text_surface, rect = font.render(f"Score: {score}", (255, 255, 255))
     screen.blit(text_surface, (10, 10))
     # Now let's draw all the sprites in one go. (For now we only have 1 sprite!)
     barriers.draw(screen)
