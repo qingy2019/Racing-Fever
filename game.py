@@ -3,6 +3,8 @@ import pygame
 import pygame.freetype
 from tkinter import messagebox
 
+score = 0
+
 
 class Car(pygame.sprite.Sprite):
 
@@ -105,17 +107,21 @@ while carryOn:
         messagebox.showinfo("Info", "You died!")
         pygame.quit()
     else:
-        barrier.rect.x -= 1
+        barrier.rect.x -= 2
         if barrier.rect.x < 0:
+            barriers.remove(barrier)
+            barrier = Barrier(RED, 0, 0)
             barrier.rect.x = 400
             barrier.rect.y = random.randint(0, 500 - barrier.height())
+            barriers.add(barrier)
+            score += 1
 
         barriers.update()
 
     # Drawing on Screen
     screen.fill(GREEN)
 
-    text_surface, rect = font.render("Hello World!", (0, 0, 0))
+    text_surface, rect = font.render(f"Score: {score}", (0, 0, 0))
     screen.blit(text_surface, (10, 10))
     # Now let's draw all the sprites in one go. (For now we only have 1 sprite!)
     barriers.draw(screen)
