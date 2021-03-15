@@ -149,7 +149,7 @@ while carryOn:
         screen.blit(bg2.image, bg2.rect)
     else:
         screen.blit(bg3.image, bg3.rect)
-    text_surface, rect = font.render(f"Score: {score}", (255, 255, 255))
+    text_surface, rect = font.render(f"Score: {score}", RED)
     screen.blit(text_surface, (10, 10))
     # Now let's draw all the sprites in one go. (For now we only have 1 sprite!)
     barriers.draw(screen)
