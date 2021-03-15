@@ -111,7 +111,7 @@ while carryOn:
         if barrier.rect.x < 0:
             barriers.remove(barrier)
             barrier = Barrier(RED, 0, 0)
-            barrier.rect.x = 400
+            barrier.rect.x = 800
             barrier.rect.y = random.randint(0, 500 - barrier.height())
             barriers.add(barrier)
             score += 1
