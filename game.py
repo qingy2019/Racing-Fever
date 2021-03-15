@@ -5,6 +5,8 @@ from tkinter import messagebox
 
 score = 0
 
+level = 1
+
 
 class Car(pygame.sprite.Sprite):
 
@@ -19,7 +21,7 @@ class Car(pygame.sprite.Sprite):
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
         # Instead we could load a proper pciture of a car...
-        self.image = pygame.image.load("car.png").convert_alpha()
+        self.image = pygame.image.load("car1.png").convert_alpha()
 
         # Fetch the rectangle object that has the dimensions of the image.
         self.rect = self.image.get_rect()
@@ -30,7 +32,10 @@ class Car(pygame.sprite.Sprite):
 
     def move_down(self, pixels):
         self.rect.y += pixels
-        self.rect.y = max(0, min(self.rect.y, 500-self.image.get_height()))
+        self.rect.y = max(0, min(self.rect.y, 500 - self.image.get_height()))
+
+    def update_level(self, level):
+        self.image = pygame.image.load(f"car{level}.png").convert_alpha()
 
 
 class Barrier(pygame.sprite.Sprite):
@@ -46,7 +51,7 @@ class Barrier(pygame.sprite.Sprite):
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
         # Instead we could load a proper pciture of a car...
-        self.image = pygame.image.load("barrier.png").convert_alpha()
+        self.image = pygame.image.load(f"barrier{level}.png").convert_alpha()
 
         # Fetch the rectangle object that has the dimensions of the image.
         self.rect = self.image.get_rect()
@@ -92,7 +97,8 @@ barrier.rect.y = 230
 
 
 bg1 = Background('road1.jpg', [0, 0])
-
+bg2 = Background('road2.jpg', [0, 0])
+bg3 = Background('road3.jpg', [0, 0])
 
 # Add the car to the list of objects
 player.add(playerCar)
@@ -118,7 +124,7 @@ while carryOn:
         messagebox.showinfo("Info", "You died!")
         pygame.quit()
     else:
-        barrier.rect.x -= 2
+        barrier.rect.x -= level*2
         if barrier.rect.x < 0:
             barriers.remove(barrier)
             barrier = Barrier(RED, 0, 0)
@@ -128,11 +134,21 @@ while carryOn:
             score += 1
 
         barriers.update()
-
+    if score < 5:
+        level = 1
+    elif score >= 5 and score <= 10:
+        level = 2
+    else:
+        level = 3
+    playerCar.update_level(level)
     # Drawing on Screen
     screen.fill(GREEN)
-    screen.blit(bg1.image, bg1.rect)
-
+    if level == 1:
+        screen.blit(bg1.image, bg1.rect)
+    elif level == 2:
+        screen.blit(bg2.image, bg2.rect)
+    else:
+        screen.blit(bg3.image, bg3.rect)
     text_surface, rect = font.render(f"Score: {score}", (255, 255, 255))
     screen.blit(text_surface, (10, 10))
     # Now let's draw all the sprites in one go. (For now we only have 1 sprite!)
@@ -142,7 +158,7 @@ while carryOn:
     # Refresh Screen
     pygame.display.flip()
 
-    # Number of frames per secong e.g. 60
+    # Number of frames per second e.g. 60
     clock.tick(60)
 
 pygame.quit()
