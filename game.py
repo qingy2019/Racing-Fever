@@ -20,9 +20,7 @@ class Car(pygame.sprite.Sprite):
         # Draw the car (a rectangle!)
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
-
         self.image = pygame.image.load("car1.png").convert_alpha()
-
 
         self.rect = self.image.get_rect()
 
@@ -47,12 +45,9 @@ class Barrier(pygame.sprite.Sprite):
         self.image.fill(WHITE)
         self.image.set_colorkey(WHITE)
 
-
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
-
         self.image = pygame.image.load(f"barrier{level}.png").convert_alpha()
-
 
         self.rect = self.image.get_rect()
 
@@ -152,14 +147,12 @@ while carryOn:
         screen.blit(bg3.image, bg3.rect)
     text_surface, rect = font.render(f"Score: {score}", RED)
     screen.blit(text_surface, (10, 10))
-    
+
     barriers.draw(screen)
     player.draw(screen)
 
-    
     pygame.display.flip()
 
-    
     clock.tick(60)
 
 pygame.quit()
