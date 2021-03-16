@@ -20,10 +20,10 @@ class Car(pygame.sprite.Sprite):
         # Draw the car (a rectangle!)
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
-        # Instead we could load a proper pciture of a car...
+
         self.image = pygame.image.load("car1.png").convert_alpha()
 
-        # Fetch the rectangle object that has the dimensions of the image.
+
         self.rect = self.image.get_rect()
 
     def move_up(self, pixels):
@@ -47,13 +47,13 @@ class Barrier(pygame.sprite.Sprite):
         self.image.fill(WHITE)
         self.image.set_colorkey(WHITE)
 
-        # Draw the car (a rectangle!)
+
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
-        # Instead we could load a proper pciture of a car...
+
         self.image = pygame.image.load(f"barrier{level}.png").convert_alpha()
 
-        # Fetch the rectangle object that has the dimensions of the image.
+
         self.rect = self.image.get_rect()
 
     def height(self):
@@ -62,7 +62,7 @@ class Barrier(pygame.sprite.Sprite):
 
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
-        pygame.sprite.Sprite.__init__(self)  # call Sprite initializer
+        pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(image_file)
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = location
@@ -83,7 +83,7 @@ size = (SCREENWIDTH, SCREENHEIGHT)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Car Racing")
 
-# This will be a list that will contain all the sprites we intend to use in our game.
+
 barriers = pygame.sprite.Group()
 player = pygame.sprite.GroupSingle()
 
@@ -100,11 +100,11 @@ bg1 = Background('road1.jpg', [0, 0])
 bg2 = Background('road2.jpg', [0, 0])
 bg3 = Background('road3.jpg', [0, 0])
 
-# Add the car to the list of objects
+
 player.add(playerCar)
 barriers.add(barrier)
 
-# Allowing the user to close the window...
+
 carryOn = True
 clock = pygame.time.Clock()
 
@@ -134,6 +134,7 @@ while carryOn:
             score += 1
 
         barriers.update()
+
     if score < 5:
         level = 1
     elif score >= 5 and score <= 10:
@@ -151,14 +152,14 @@ while carryOn:
         screen.blit(bg3.image, bg3.rect)
     text_surface, rect = font.render(f"Score: {score}", RED)
     screen.blit(text_surface, (10, 10))
-    # Now let's draw all the sprites in one go. (For now we only have 1 sprite!)
+    
     barriers.draw(screen)
     player.draw(screen)
 
-    # Refresh Screen
+    
     pygame.display.flip()
 
-    # Number of frames per second e.g. 60
+    
     clock.tick(60)
 
 pygame.quit()
