@@ -4,7 +4,7 @@ import pygame.freetype
 from tkinter import messagebox
 
 score = 0
-
+angle = 0
 level = 1
 
 
@@ -113,13 +113,14 @@ while carryOn:
         playerCar.move_up(5)
     if keys[pygame.K_DOWN]:
         playerCar.move_down(5)
-
+    angle += 1
+    angle%=360
     # Game Logic
     if playerCar.rect.colliderect(barrier):
         messagebox.showinfo("Info", "You died!")
         pygame.quit()
     else:
-        barrier.rect.x -= level*2
+        barrier.rect.x -= level * 2
         if barrier.rect.x < 0:
             barriers.remove(barrier)
             barrier = Barrier(RED, 0, 0)
@@ -137,6 +138,8 @@ while carryOn:
     else:
         level = 3
     playerCar.update_level(level)
+
+
     # Drawing on Screen
     screen.fill(GREEN)
     if level == 1:
