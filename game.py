@@ -76,8 +76,7 @@ SCREENHEIGHT = 500
 
 size = (SCREENWIDTH, SCREENHEIGHT)
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("Car Racing")
-
+pygame.display.set_caption("Racing Fever")
 
 barriers = pygame.sprite.Group()
 player = pygame.sprite.GroupSingle()
@@ -117,7 +116,7 @@ while carryOn:
     angle%=360
     # Game Logic
     if playerCar.rect.colliderect(barrier):
-        messagebox.showinfo("Info", "You died!")
+        messagebox.showinfo("Info", f"You died! Score: {score}")
         pygame.quit()
     else:
         barrier.rect.x -= level * 2
