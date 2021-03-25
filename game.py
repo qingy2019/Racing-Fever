@@ -32,6 +32,14 @@ class Car(pygame.sprite.Sprite):
         self.rect.y += pixels
         self.rect.y = max(0, min(self.rect.y, 500 - self.image.get_height()))
 
+    def move_right(self, pixels):
+        self.rect.x += pixels
+        self.rect.x = max(0, min(self.rect.x, 800 - self.image.get_width()))
+
+    def move_left(self, pixels):
+        self.rect.x -= pixels
+        self.rect.x = max(0, min(self.rect.x, 800))
+
     def update_level(self, level):
         self.image = pygame.image.load(f"car{level}.png").convert_alpha()
 
@@ -112,8 +120,12 @@ while carryOn:
         playerCar.move_up(5)
     if keys[pygame.K_DOWN]:
         playerCar.move_down(5)
+    if keys[pygame.K_LEFT]:
+        playerCar.move_left(5)
+    if keys[pygame.K_RIGHT]:
+        playerCar.move_right(5)
     angle += 1
-    angle%=360
+    angle %= 360
     # Game Logic
     if playerCar.rect.colliderect(barrier):
         messagebox.showinfo("Info", f"You died! Score: {score}")
@@ -126,10 +138,9 @@ while carryOn:
             barrier.rect.x = 800
             barrier.rect.y = random.randint(0, 500 - barrier.height())
             barriers.add(barrier)
-            score += 1
+            score += 100
 
         barriers.update()
-
     if score < 5:
         level = 1
     elif score >= 5 and score <= 10:
@@ -137,7 +148,6 @@ while carryOn:
     else:
         level = 3
     playerCar.update_level(level)
-
 
     # Drawing on Screen
     screen.fill(GREEN)
