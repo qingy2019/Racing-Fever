@@ -131,7 +131,7 @@ while carryOn:
         messagebox.showinfo("Info", f"You died! Score: {score}")
         pygame.quit()
     else:
-        barrier.rect.x -= level * 2
+        barrier.rect.x -= level * 3
         if barrier.rect.x < 0:
             barriers.remove(barrier)
             barrier = Barrier(RED, 0, 0)
@@ -141,9 +141,9 @@ while carryOn:
             score += 1
 
         barriers.update()
-    if score < 5:
+    if score < 20:
         level = 1
-    elif score >= 5 and score <= 10:
+    elif score >= 20 and score <= 80:
         level = 2
     else:
         level = 3
