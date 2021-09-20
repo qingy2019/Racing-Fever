@@ -2,10 +2,21 @@ import random
 import pygame
 import pygame.freetype
 from tkinter import messagebox
+from colorama import *
 
 score = 0
 angle = 0
 level = 1
+
+init(convert=True)
+print(Fore.YELLOW+"""
+  __         ____                _                  _____                                   __  
+ / /        |  _ \   __ _   ___ (_) _ __    __ _   |  ___|  ___  __   __  ___  _ __         \ \ 
+| |  _____  | |_) | / _` | / __|| || '_ \  / _` |  | |_    / _ \ \ \ / / / _ \| '__|  _____  | |
+| | |_____| |  _ < | (_| || (__ | || | | || (_| |  |  _|  |  __/  \ V / |  __/| |    |_____| | |
+| |         |_| \_\ \__,_| \___||_||_| |_| \__, |  |_|     \___|   \_/   \___||_|            | |
+ \_\                                       |___/                                            /_/ 
+""")
 
 
 class Car(pygame.sprite.Sprite):
@@ -131,7 +142,7 @@ while carryOn:
         messagebox.showinfo("Info", f"You died! Score: {score}")
         pygame.quit()
     else:
-        barrier.rect.x -= level * 3
+        barrier.rect.x -= level * 5
         if barrier.rect.x < 0:
             barriers.remove(barrier)
             barrier = Barrier(RED, 0, 0)
